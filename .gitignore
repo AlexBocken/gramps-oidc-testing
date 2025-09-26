@@ -1,0 +1,33 @@
+# Virtual environments
+gramps_venv/
+venv/
+.venv/
+
+# Dependencies
+node_modules/
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+*.log
+logs/
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Gramps data directories
+gramps-web/
+gramps-web-api/
+
+# Local environment overrides
+.env.local.override

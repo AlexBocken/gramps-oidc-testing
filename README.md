@@ -68,7 +68,8 @@ This repository contains a complete testing environment for the Gramps Web OIDC 
 | `start-keycloak.sh` | Starts Keycloak Docker container for testing |
 | `start-backend.sh` | Starts Gramps Web API with OIDC configuration |
 | `start-frontend.sh` | Starts Gramps Web frontend |
-| `.env.local` | Environment configuration with OIDC settings |
+| `.env.local` | Environment configuration with OIDC settings (automatic role mapping) |
+| `.env.manual-roles` | Example configuration for manual role management |
 | `KEYCLOAK_SETUP.md` | Step-by-step Keycloak configuration guide |
 
 ## 🔧 Configuration
@@ -81,10 +82,12 @@ The `.env.local` file contains all necessary configuration for OIDC testing:
 - **GRAMPSWEB_OIDC_CLIENT_ID**: `gramps-web` - Must match Keycloak client
 - **GRAMPSWEB_OIDC_CLIENT_SECRET**: Configure in Keycloak and update here
 - **GRAMPSWEB_OIDC_OPENID_CONFIG_URL**: Points to Keycloak realm configuration
+- **GRAMPSWEB_OIDC_USERNAME_CLAIM**: `preferred_username` - OIDC claim to use for username
+- **GRAMPSWEB_OIDC_ROLE_CLAIM**: `groups` - OIDC claim to use for role mapping
 
 ### Role Mapping
 
-Users are automatically assigned roles based on their group membership:
+Users can be automatically assigned roles based on their group membership, or roles can be managed manually in Gramps:
 
 | Environment Variable | Gramps Role | Permissions |
 |---------------------|-------------|-------------|
@@ -94,6 +97,23 @@ Users are automatically assigned roles based on their group membership:
 | `GRAMPSWEB_OIDC_GROUP_CONTRIBUTOR` | Contributor (2) | Add new data |
 | `GRAMPSWEB_OIDC_GROUP_MEMBER` | Member (1) | View private data |
 | `GRAMPSWEB_OIDC_GROUP_GUEST` | Guest (0) | Basic read access |
+
+#### Role Management Modes
+
+**1. Automatic Role Mapping (Default)**
+When OIDC_GROUP_* environment variables are configured, roles are automatically assigned/updated based on OIDC group membership on every login.
+
+**2. Manual Role Management**
+If no OIDC_GROUP_* environment variables are set, user roles are preserved and can be managed manually in the Gramps Web admin interface:
+- **New OIDC users**: Start with Guest role (can be changed by admin)
+- **Existing OIDC users**: Keep their current role (no automatic updates)
+
+To test manual role management, copy the example configuration:
+```bash
+cp .env.manual-roles .env.local
+```
+
+This allows administrators to choose between automatic group-based role assignment or manual role control.
 
 ### Authentication Modes
 
@@ -117,6 +137,22 @@ You can test different authentication modes by modifying `.env.local`:
    GRAMPSWEB_OIDC_AUTO_REDIRECT=false
    ```
 
+### Username Claim Configuration
+
+Different OIDC providers use different claims for usernames. Configure the appropriate claim:
+
+| OIDC Provider | Recommended Username Claim | Configuration |
+|---------------|----------------------------|---------------|
+| **Keycloak** | `preferred_username` | `GRAMPSWEB_OIDC_USERNAME_CLAIM=preferred_username` |
+| **Authentik** | `preferred_username` | `GRAMPSWEB_OIDC_USERNAME_CLAIM=preferred_username` |
+| **Auth0** | `nickname` or `email` | `GRAMPSWEB_OIDC_USERNAME_CLAIM=nickname` |
+| **Azure AD** | `preferred_username` | `GRAMPSWEB_OIDC_USERNAME_CLAIM=preferred_username` |
+| **Google** | `email` | `GRAMPSWEB_OIDC_USERNAME_CLAIM=email` |
+| **GitHub** | `login` | `GRAMPSWEB_OIDC_USERNAME_CLAIM=login` |
+| **Generic** | `sub` (fallback) | Always used as fallback if primary claim is empty |
+
+**Note**: The system automatically falls back to the `sub` claim if the configured username claim is empty or missing.
+
 ## 🧪 Testing Scenarios
 
 ### 1. Basic OIDC Login
@@ -130,12 +166,19 @@ You can test different authentication modes by modifying `.env.local`:
 - Login and verify appropriate permissions
 - Test role precedence (users with multiple groups get highest role)
 
-### 3. Authentication Modes
+### 3. Manual Role Management
+- Remove all `GRAMPSWEB_OIDC_GROUP_*` environment variables
+- Restart backend to disable automatic role mapping
+- Login with OIDC user (will get Guest role)
+- Use admin interface to manually assign appropriate role
+- Verify role persists across subsequent logins
+
+### 4. Authentication Modes
 - Test mixed authentication (both OIDC and local login available)
 - Test OIDC-only mode (local login disabled)
 - Test auto-redirect functionality
 
-### 4. Error Handling
+### 5. Error Handling
 - Test with invalid credentials
 - Test with disabled user accounts
 - Test with missing group memberships

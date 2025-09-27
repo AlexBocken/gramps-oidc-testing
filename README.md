@@ -56,6 +56,8 @@ This repository contains a complete testing environment for the Gramps Web OIDC 
    ./start-frontend.sh
    ```
 
+   This automatically sets `API_URL=http://localhost:5000` to connect to the backend.
+
 8. **Test the integration**:
    - Open http://localhost:8001
    - You should see a "Login with OIDC" button
@@ -237,6 +239,16 @@ Then restart the backend to see detailed OIDC flow information.
 | Keycloak | 8080 | http://localhost:8080 |
 | Gramps API | 5000 | http://localhost:5000 |
 | Gramps Frontend | 8001 | http://localhost:8001 |
+
+## ⚙️ Frontend Configuration
+
+The frontend's API connection is configurable via environment variables:
+
+- **Development**: The `start-frontend.sh` script sets `API_URL=http://localhost:5000`
+- **Production**: Set `API_URL` during build: `API_URL=https://your-api.com npm run build`
+- **Default**: Without `API_URL`, it defaults to `http://localhost:5555` (hardcoded fallback)
+
+The build process automatically replaces the hardcoded API host with your specified `API_URL`.
 
 ## 📚 Additional Resources
 

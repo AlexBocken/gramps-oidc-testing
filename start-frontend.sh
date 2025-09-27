@@ -3,8 +3,5 @@ echo "🌐 Starting Gramps Web Frontend..."
 
 cd gramps-web
 
-# Set API URL for development (replaces hardcoded localhost:5555)
-export API_URL=http://localhost:5000
-
-# Start the development server (using the correct script name)
+# Start the development server (connects to backend on default port 5555)
 npm start

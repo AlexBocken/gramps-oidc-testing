@@ -59,7 +59,7 @@ For this, see the upcoming pull request to the main Gramps Web repository.
    ./start-frontend.sh
    ```
 
-   This automatically sets `API_URL=http://localhost:5000` to connect to the backend.
+   This connects to the backend running on the default port 5555.
 
 8. **Test the integration**:
    - Open http://localhost:8001
@@ -276,16 +276,16 @@ Then restart the backend to see detailed OIDC flow information.
 | Service | Port | URL |
 |---------|------|-----|
 | Keycloak | 8080 | http://localhost:8080 |
-| Gramps API | 5000 | http://localhost:5000 |
+| Gramps API | 5555 | http://localhost:5555 |
 | Gramps Frontend | 8001 | http://localhost:8001 |
 
 ## ⚙️ Frontend Configuration
 
 The frontend's API connection is configurable via environment variables:
 
-- **Development**: The `start-frontend.sh` script sets `API_URL=http://localhost:5000`
+- **Development**: The frontend connects to the backend on the default port 5555
 - **Production**: Set `API_URL` during build: `API_URL=https://your-api.com npm run build`
-- **Default**: Without `API_URL`, it defaults to `http://localhost:5555` (hardcoded fallback)
+- **Default**: Uses `http://localhost:5555` (hardcoded in frontend)
 
 The build process automatically replaces the hardcoded API host with your specified `API_URL`.
 

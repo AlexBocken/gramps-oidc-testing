@@ -35,4 +35,4 @@ alembic upgrade head 2>/dev/null || echo "No migrations to run"
 
 # Start the Flask development server
 echo "Starting Flask development server..."
-python -m flask --app gramps_webapi.app run --host=0.0.0.0 --port=5000 --debug
+python -m flask --app gramps_webapi.app run --host=0.0.0.0 --port=5555 --debug

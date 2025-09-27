@@ -2,6 +2,9 @@
 
 This repository contains a complete testing environment for the Gramps Web OIDC integration. It includes scripts, configuration files, and documentation to quickly set up and test OIDC authentication with Keycloak.
 
+This repo is meant purely for testing and demonstration purposes. It is not intended for production use.
+For this, see the upcoming pull request to the main Gramps Web repository.
+
 ## 🚀 Quick Start
 
 ### Prerequisites
@@ -16,8 +19,8 @@ This repository contains a complete testing environment for the Gramps Web OIDC 
 1. **Clone the Gramps repositories**:
    ```bash
    # Clone the main repositories alongside this testing environment
-   git clone https://github.com/gramps-project/gramps-web-api.git
-   git clone https://github.com/gramps-project/gramps-web.git
+   git clone https://github.com/AlexBocken/gramps-web-api.git
+   git clone https://github.com/AlexBocken/gramps-web.git
    ```
 
 2. **Create Python virtual environment**:

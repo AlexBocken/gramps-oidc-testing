@@ -8,20 +8,20 @@ This guide provides step-by-step instructions for setting up Keycloak as an OIDC
 - Gramps Web with OIDC integration installed
 - Basic understanding of OIDC/OAuth2 concepts
 
-## 1. Start Keycloak
+## 1. Start Auxiliary Services
 
-Use the provided script to start Keycloak in development mode:
+Use the provided script to start all auxiliary services (PostgreSQL, Redis, Keycloak):
 
 ```bash
-./start-keycloak.sh
+./start-auxiliary-services.sh
 ```
 
 This will:
-- Start Keycloak container on port 8080
-- Set admin credentials to `admin/admin`
-- Use in-memory H2 database (suitable for testing)
+- Start PostgreSQL database on port 5432
+- Start Redis cache on port 6379
+- Start Keycloak container on port 8080 with admin credentials `admin/admin`
 
-Wait for Keycloak to fully start (usually 30-60 seconds). You'll see "Started Keycloak" in the logs.
+Wait for all services to fully start (Keycloak may take 1-2 minutes). The script will show status for each service.
 
 ## 2. Access Keycloak Admin Console
 

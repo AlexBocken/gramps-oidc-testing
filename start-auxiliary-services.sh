@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "🐳 Starting Gramps Infrastructure (PostgreSQL + Redis + Keycloak)..."
+echo "🐳 Starting Gramps Auxiliary Services (PostgreSQL + Redis + Keycloak)..."
 
 # Check if Docker is running
 if ! docker info > /dev/null 2>&1; then
@@ -45,7 +45,7 @@ else
 fi
 
 echo ""
-echo "🎉 Infrastructure services are running!"
+echo "🎉 Auxiliary services are running!"
 echo ""
 echo "📊 Service details:"
 echo "   📚 PostgreSQL: localhost:5432 (gramps/gramps_password)"

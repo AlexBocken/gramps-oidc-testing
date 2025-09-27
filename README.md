@@ -43,11 +43,11 @@ For this, see the upcoming pull request to the main Gramps Web repository.
    cd ..
    ```
 
-5. **Start Keycloak**:
+5. **Start auxiliary services** (PostgreSQL, Redis, Keycloak):
    ```bash
-   ./start-keycloak.sh
+   ./start-auxiliary-services.sh
    ```
-   Wait for Keycloak to start (30-60 seconds), then follow the [Keycloak Setup Guide](KEYCLOAK_SETUP.md).
+   Wait for all services to start (Keycloak may take 1-2 minutes), then follow the [Keycloak Setup Guide](KEYCLOAK_SETUP.md).
 
 6. **Start the backend** (in a new terminal):
    ```bash
@@ -70,10 +70,11 @@ For this, see the upcoming pull request to the main Gramps Web repository.
 
 | File | Description |
 |------|-------------|
-| `start-keycloak.sh` | Starts Keycloak Docker container for testing |
+| `docker-compose.yml` | Docker services for PostgreSQL, Redis, and Keycloak |
+| `start-auxiliary-services.sh` | Starts all auxiliary services (database, cache, auth) |
 | `start-backend.sh` | Starts Gramps Web API with OIDC configuration |
 | `start-frontend.sh` | Starts Gramps Web frontend |
-| `.env.local` | Environment configuration with OIDC settings (automatic role mapping) |
+| `.env.local` | Environment configuration with OIDC and PostgreSQL settings |
 | `.env.manual-roles` | Example configuration for manual role management |
 | `KEYCLOAK_SETUP.md` | Step-by-step Keycloak configuration guide |
 

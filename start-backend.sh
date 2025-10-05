@@ -9,6 +9,9 @@ set -a
 source .env.local
 set +a
 
+# Ensure logging is visible
+export PYTHONUNBUFFERED=1
+
 # Change to API directory
 cd gramps-web-api
 
@@ -33,6 +36,7 @@ with app.app_context():
 # Run database migrations
 alembic upgrade head 2>/dev/null || echo "No migrations to run"
 
-# Start the Flask development server
+# Start the Flask development server with verbose logging
 echo "Starting Flask development server..."
+echo "Logs will appear below..."
 python -m flask --app gramps_webapi.app run --host=0.0.0.0 --port=5555 --debug

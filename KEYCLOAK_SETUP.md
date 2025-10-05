@@ -51,8 +51,8 @@ Wait for all services to fully start (Keycloak may take 1-2 minutes). The script
    - ✅ Direct access grants: ON
    - Click "Next"
 5. **Login settings**:
-   - Valid redirect URIs: `http://localhost:5000/api/oidc/callback/*`
-   - Web origins: `http://localhost:5000`
+   - Valid redirect URIs: `http://localhost:5555/api/oidc/callback/*`
+   - Web origins: `http://localhost:5555
    - Click "Save"
 
 ## 5. Get Client Secret

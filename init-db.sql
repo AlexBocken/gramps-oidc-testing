@@ -8,3 +8,6 @@
 -- This is handled by POSTGRES_INITDB_ARGS in docker-compose.yml
 
 -- The main gramps_web database is created automatically by POSTGRES_DB
+
+-- Create Authentik database
+CREATE DATABASE authentik;
